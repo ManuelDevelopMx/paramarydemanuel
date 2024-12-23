@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Flying Letter</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffe4e1;
+            overflow: hidden;
+            font-family: 'Cursive', Arial, sans-serif;
+            position: relative;
+        }
+
+        .container {
+            position: relative;
+            width: 400px;
+            height: 300px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .envelope {
+            position: absolute;
+            top: -400px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            height: 260px;
+            background: linear-gradient(to bottom, #ffb6c1, #fff);
+            border: 4px solid #ff69b4;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            animation: flyIn 2s ease-out forwards;
+            overflow: hidden;
+        }
+
+        .envelope::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-bottom: 130px solid #ffb6c1;
+            z-index: 1;
+        }
+
+        .envelope::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 200px solid transparent;
+            border-right: 200px solid transparent;
+            border-top: 130px solid #ffb6c1;
+            z-index: 1;
+        }
+
+        .heart {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 100px;
+            background-color: #ff69b4;
+            border-radius: 60% 60% 0 0;
+            transform: rotate(-45deg);
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 100px;
+            background-color: #ff69b4;
+            border-radius: 60% 60% 0 0;
+        }
+
+        .heart::before {
+            top: -60px;
+            left: 0;
+        }
+
+        .heart::after {
+            left: 60px;
+            top: 0;
+        }
+
+        .paper {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scaleY(0);
+            width: 360px;
+            height: 240px;
+            background: #fff;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            animation: revealPaper 1s 2s ease-out forwards;
+            z-index: 2;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .message {
+            flex: 1;
+            font-size: 1.2rem;
+            color: #ff1493;
+            text-align: center;
+            line-height: 1.5;
+            overflow: auto;
+            word-wrap: break-word;
+            padding: 10px;
+            border: 1px solid #ff69b4;
+            border-radius: 5px;
+        }
+
+        .response {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .response textarea {
+            resize: none;
+            height: 60px;
+            padding: 5px;
+            border: 1px solid #ff69b4;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .response button {
+            padding: 10px;
+            background-color: #ff69b4;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Carrusel Vertical */
+        .carousel {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100px;
+            height: 200px;
+            overflow: hidden;
+            border: 2px solid #ff69b4;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .carousel-images {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .carousel-images img {
+            width: 100%;
+            height: 100px;
+            object-fit: cover;
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateY(0);
+            }
+            20% {
+                transform: translateY(-100%);
+            }
+            40% {
+                transform: translateY(-200%);
+            }
+            60% {
+                transform: translateY(-300%);
+            }
+            80% {
+                transform: translateY(-400%);
+            }
+            100% {
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes flyIn {
+            from {
+                top: -400px;
+            }
+            to {
+                top: 50%;
+            }
+        }
+
+        @keyframes revealPaper {
+            from {
+                transform: translate(-50%, -50%) scaleY(0);
+            }
+            to {
+                transform: translate(-50%, -50%) scaleY(1);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                width: 320px;
+                height: 240px;
+            }
+
+            .envelope {
+                width: 320px;
+                height: 240px;
+            }
+
+            .paper {
+                width: 300px;
+                height: 200px;
+            }
+
+            .message {
+                font-size: 1rem;
+            }
+
+            .response textarea {
+                font-size: 0.9rem;
+            }
+
+            .response button {
+                font-size: 0.9rem;
+            }
+        }
+        /* Advertencia de orientación */
+/* Advertencia de orientación */
+.orientation-warning {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    display: none; /* Oculto por defecto */
+    z-index: 1000;
+}
+
+.orientation-warning .icon {
+    font-size: 50px; /* Tamaño del ícono */
+    margin-bottom: 10px;
+    color: #ff69b4; /* Color atractivo */
+}
+
+.orientation-warning p {
+    font-size: 1.2rem;
+    color: #ff1493;
+}
+
+
+
+    </style>
+</head>
+<body>
+    <div class="orientation-warning" id="orientationWarning">
+        <div class="icon">
+            <span class="phone-icon">&#128241;</span> <!-- Ícono de teléfono -->
+        </div>
+        <p>Por favor, pon tu teléfono en posición horizontal. Rota tu telefono para apreciar mejor el contenido</p>
+    </div>
+    <div class="container">
+        <div class="carousel" style="left: -120px;">
+            <div class="carousel-images">
+                <img src="descarga.webp" alt="Image 1">
+                <img src="images.jpeg" alt="Image 2">
+                <img src="fondo-pantalla-pareja-romantica-amor_94574-668.avif" alt="Image 3">
+            </div>
+        </div>
+        <div class="envelope">
+            <div class="heart"></div>
+        </div>
+        <div class="paper">
+            <div class="message">Hola Mary, Quiero decirte que me perdones por hacerte sentir mal, no de debi de haber dicho todo eso, estuvo mal haber dicho todo eso por parte mia, me importas mucho y Te amo pero no me habia atrevido a decirte todo esto por que siento verguenza de hablarte por que se lo que dije, no quiero estar sin ti nunca y quiero pasar todos mis dias contigo, te necesito , asi que por favor perdoname y regresemos por favor perdoname, Te amo mucho y lamento todo eso, entiendo si no quieres perdonarme y no quieres nada pero si me perdonas y me dejas seguir contigo por favor mandame un mensaje y si no quieres perdoname y no seguir entonces no me respondas nada yo entendere, se que estas enojada y ardida pero por favor hazlo por favor perdoname eres la persona que amo y con la que pienso pasarla siempre toda mi vida, tengo planes contigo para siempre para estar juntos, yo te amo mary, asi que por favor apiadate de mi por favor sensibiliza tu corazon y perdoname y dejame seguir teniendo ese gusto de estar contigo </div>
+            <div class="response">
+            </div>
+        </div>
+        <div class="carousel" style="right: -120px;">
+            <div class="carousel-images">
+                <img src="Imagen de WhatsApp 2024-12-22 a las 23.11.32_75e7f589.jpg" alt="Image 5">
+                <img src="Imagen de WhatsApp 2024-12-22 a las 23.11.32_d8d3878a.jpg" alt="Image 6">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const message = document.querySelector('.message');
+            setTimeout(() => {
+                message.style.display = 'block';
+            }, 3000); // Match the delay of the fadeIn animation
+
+            const button = document.querySelector('.response button');
+            button.addEventListener('click', () => {
+                const responseText = document.querySelector('.response textarea').value;
+                if (responseText.trim()) {
+                    console.log('User Response:', responseText);
+                    alert('Your response has been sent!');
+                } else {
+                    alert('Please write a response before sending.');
+                }
+            });
+        });
+        document.addEventListener("DOMContentLoaded", () => {
+    const orientationWarning = document.getElementById('orientationWarning');
+
+    function checkOrientation() {
+        if (window.innerHeight > window.innerWidth) {
+            orientationWarning.style.display = 'block'; // Mostrar mensaje si está en vertical (posición incorrecta)
+            setTimeout(() => {
+                orientationWarning.style.display = 'none'; // Ocultar mensaje después de 5 segundos
+            }, 10000);
+        } else {
+            orientationWarning.style.display = 'none'; // Ocultar mensaje si está en horizontal
+        }
+    }
+
+    // Verificar la orientación al cargar la página y cuando cambie
+    checkOrientation();
+    window.addEventListener('resize', checkOrientation); // Detectar cambios de tamaño
+});
+
+    </script>
+</body>
+</html>
